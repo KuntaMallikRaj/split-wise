@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Split-Wise</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>💸 Split-Wise</h1>
+    <p>Split expenses with friends, settle up the easy way.</p>
+  </header>
+
+  <main>
+    <!-- People -->
+    <section class="card">
+      <h2>People</h2>
+      <form id="userForm" class="row">
+        <input id="userName" placeholder="Name" required />
+        <input id="userEmail" type="email" placeholder="Email" required />
+        <button type="submit">Add person</button>
+      </form>
+      <ul id="userList" class="chips"></ul>
+    </section>
+
+    <!-- Groups -->
+    <section class="card">
+      <h2>Groups</h2>
+      <form id="groupForm" class="row">
+        <input id="groupName" placeholder="Group name (e.g. Goa Trip)" required />
+        <button type="submit">Create group</button>
+      </form>
+      <div id="groupPickerHint" class="hint">Tick people above? No — pick members after creating a group.</div>
+      <ul id="groupList" class="group-list"></ul>
+    </section>
+
+    <!-- Group detail -->
+    <section class="card hidden" id="groupDetail">
+      <div class="detail-head">
+        <h2 id="detailName">Group</h2>
+        <button class="ghost" id="closeDetail">Close</button>
+      </div>
+
+      <div class="detail-grid">
+        <div>
+          <h3>Members</h3>
+          <ul id="memberList" class="chips"></ul>
+          <form id="memberForm" class="row">
+            <select id="memberSelect"></select>
+            <button type="submit">Add member</button>
+          </form>
+        </div>
+
+        <div>
+          <h3>Balances</h3>
+          <ul id="balanceList" class="balances"></ul>
+          <h4>Settle up</h4>
+          <ul id="settleList" class="settle"></ul>
+        </div>
+      </div>
+
+      <h3>Add expense</h3>
+      <form id="expenseForm" class="expense-form">
+        <input id="expDesc" placeholder="Description" required />
+        <input id="expAmount" type="number" step="0.01" min="0.01" placeholder="Amount" required />
+        <select id="expPaidBy"></select>
+        <select id="expSplitType">
+          <option value="equal">Split equally</option>
+          <option value="exact">Exact amounts</option>
+        </select>
+        <div id="participantsBox" class="participants"></div>
+        <button type="submit">Add expense</button>
+      </form>
+
+      <h3>Expenses</h3>
+      <ul id="expenseList" class="expenses"></ul>
+
+      <h3>Record a payment</h3>
+      <form id="settleForm" class="row">
+        <select id="settlePayer"></select>
+        <span>pays</span>
+        <select id="settlePayee"></select>
+        <input id="settleAmount" type="number" step="0.01" min="0.01" placeholder="Amount" required />
+        <button type="submit">Settle</button>
+      </form>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
