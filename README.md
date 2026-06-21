@@ -67,13 +67,20 @@ gunicorn --chdir backend app:app --bind 127.0.0.1:8000
 
 ## Deploy to Render
 
-This repo ships a [`render.yaml`](render.yaml) blueprint (web service + free
-PostgreSQL).
+This repo ships a [`render.yaml`](render.yaml) blueprint (web service only).
 
 1. Push to GitHub (done).
 2. Render dashboard → **New → Blueprint** → connect this repo → **Apply**.
-3. `DATABASE_URL` and `SECRET_KEY` are injected automatically. Health check is
-   `/health`.
+3. `SECRET_KEY` is generated automatically. Set **`DATABASE_URL`** in the
+   service's Environment tab to a PostgreSQL connection string (see note below),
+   then redeploy. Health check is `/health`.
+
+> **Database note:** Render's free tier allows only one PostgreSQL database per
+> account. This blueprint therefore does **not** create its own DB. Point
+> `DATABASE_URL` at an existing Postgres instance (copy its *Internal Connection
+> String* from that database's page in Render) — its tables don't collide with
+> this app's. Until `DATABASE_URL` is set, the app falls back to SQLite, which is
+> ephemeral on Render's free tier (data resets on restart).
 
 The web service serves both the API and the UI on the same origin, so no extra
 frontend hosting is needed.
